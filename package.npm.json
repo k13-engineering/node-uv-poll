@@ -1,0 +1,24 @@
+{
+	"name": "@k13engineering/uv-poll",
+	"type": "module",
+	"description": "File descriptor polling utilities for Node.js",
+	"publishConfig": {
+		"access": "public"
+	},
+	"files": [
+		"dist"
+	],
+	"main": "dist/lib/index.js",
+	"scripts": {},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/k13-engineering/node-uv-poll.git"
+	},
+	"keywords": [],
+	"author": "Simon Kadisch",
+	"license": "LGPL 2.1",
+	"bugs": {
+		"url": "https://github.com/k13-engineering/node-uv-poll/issues"
+	},
+	"homepage": "https://github.com/k13-engineering/node-uv-poll#readme"
+}

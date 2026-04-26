@@ -1,0 +1,17 @@
+const UV_READABLE = 1;
+const UV_WRITABLE = 2;
+const UV_DISCONNECT = 4;
+const UV_PRIORITIZED = 8;
+
+const UV_EPERM = -1;
+const UV_EBADF = -9;
+
+export {
+  UV_READABLE,
+  UV_WRITABLE,
+  UV_DISCONNECT,
+  UV_PRIORITIZED,
+
+  UV_EPERM,
+  UV_EBADF,
+};
