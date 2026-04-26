@@ -1,14 +1,12 @@
-import { createPollerInternal } from "./poller.ts";
+import { createPollerInternal, type TPollerInstance } from "./poller.ts";
 import { createNativeUvPoll } from "./native.ts";
 
-type TCreatePollerArgs = Omit<Parameters<typeof createPollerInternal>[0], "nativeModule">;
-
-const createPoller = (args: TCreatePollerArgs) => {
+const createPoller = ({ fd }: { fd: number }): TPollerInstance => {
   return createPollerInternal({
-    ...args,
     nativeModule: {
       createNativeUvPoll
-    }
+    },
+    fd
   });
 };
 

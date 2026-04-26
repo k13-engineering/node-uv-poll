@@ -243,10 +243,13 @@ const createPollerInternal = ({
   };
 };
 
+type TPollerInstance = ReturnType<typeof createPollerInternal>;
+
 export {
   createPollerInternal,
 };
 
 export type {
   TPollEvents,
+  TPollerInstance,
 };
