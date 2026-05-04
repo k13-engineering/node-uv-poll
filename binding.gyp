@@ -2,11 +2,20 @@
     "targets": [
         {
             "target_name": "uv-poll",
-            "sources": [ "src/main.c" ],
+            "sources": [ "src/main.vibe.c" ],
             "cflags": [
                 "-Werror",
-                "-Wunused-variable"
+                "-Wunused-variable",
+
+                "-nostdlib",
+                "-nodefaultlibs",
+                "-ffreestanding"
             ],
+            "ldflags": [
+              "-nostdlib",
+              "-nodefaultlibs"
+            ],
+            "libraries": []
         }
     ]
 }
