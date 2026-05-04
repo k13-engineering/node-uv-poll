@@ -22,5 +22,6 @@
   "bugs": {
     "url": "https://github.com/k13-engineering/node-uv-poll/issues"
   },
-  "homepage": "https://github.com/k13-engineering/node-uv-poll#readme"
+  "homepage": "https://github.com/k13-engineering/node-uv-poll#readme",
+  "gypfile": false
 }
