@@ -10,6 +10,7 @@ const createGarbageCollectionGuard = <T>({
   createError: (args: { info: T }) => Error,
 }) => {
 
+  // eslint-disable-next-line k13-engineering/no-new
   const instanceFinalizationRegistry = new FinalizationRegistry((info: T) => {
     // this callback is called when a instance is garbage collected without release being called
     throw createError({ info });

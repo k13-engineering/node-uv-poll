@@ -33,6 +33,7 @@ type TNativeModule = {
 
 let loadedAddon: TNativeModule | undefined = undefined;
 
+// eslint-disable-next-line complexity
 const createNativeUvPoll = (arg: Parameters<TNativeModule["createNativeUvPoll"]>[0]) => {
   if (loadedAddon !== undefined) {
     return loadedAddon.createNativeUvPoll(arg);

@@ -5,6 +5,7 @@ import { UV_EBADF, UV_READABLE } from "../dist/lib/constants.js";
 import { syscall, syscallNumbers } from "syscall-napi";
 import { createPollerInternal } from "../dist/lib/poller.js";
 import { type TNativeModule } from "../dist/lib/native.js";
+import { describe, it, afterEach } from "mocha";
 
 const AF_UNIX = 1n;
 const SOCK_STREAM = 1n;
@@ -17,7 +18,7 @@ const createSocketPair = (): [number, number] => {
   });
 
   if (result.errno !== undefined) {
-    throw new Error(`socketpair failed with errno ${result.errno}`);
+    throw Error(`socketpair failed with errno ${result.errno}`);
   }
 
   const view = new DataView(buf.buffer);
@@ -35,7 +36,7 @@ const writeFd = ({ fd, data }: { fd: number; data: Uint8Array }) => {
   });
 
   if (result.errno !== undefined) {
-    throw new Error(`write failed with errno ${result.errno}`);
+    throw Error(`write failed with errno ${result.errno}`);
   }
 };
 

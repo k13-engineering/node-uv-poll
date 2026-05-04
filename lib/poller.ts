@@ -7,7 +7,10 @@ import {
   UV_WRITABLE
 } from "./constants.ts";
 import { type TNativeModule } from "./native.ts";
-import { createDefaultGarbageCollectedWithoutReleaseError, createGarbageCollectionGuard } from "./snippets/gc-guard.ts";
+import {
+  createDefaultGarbageCollectedWithoutReleaseError,
+  createGarbageCollectionGuard
+} from "./snippets/gc-guard.ts";
 
 type TPollEvents = {
   error: (args: { errorCode: number }) => void;
