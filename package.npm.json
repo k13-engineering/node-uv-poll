@@ -6,9 +6,7 @@
     "access": "public"
   },
   "files": [
-    "dist",
-    "src",
-    "binding.gyp"
+    "dist"
   ],
   "main": "dist/lib/index.js",
   "scripts": {},
