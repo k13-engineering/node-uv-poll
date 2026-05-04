@@ -1,15 +1,14 @@
-import { createDefaultNativeAddonLoader } from "./snippets/native-loader.ts";
-import nodePath from "node:path";
-import { fileURLToPath } from "node:url";
+import { createDefaultAddonLoader } from "@k13engineering/addon-loader";
+import { uvPollAddonArm64 } from "./generated/uv-poll-arm64.ts";
+import { uvPollAddonX64 } from "./generated/uv-poll-x64.ts";
+import nodeProcess from "node:process";
 
-const ourScriptPath = fileURLToPath(import.meta.url);
-const ourScriptFolder = nodePath.dirname(ourScriptPath);
-const isDistBuild = ourScriptFolder.endsWith("dist/lib");
+const addonBinariesByArch: Partial<{ [key in NodeJS.Architecture]: Uint8Array }> = {
+  x64: uvPollAddonX64,
+  arm64: uvPollAddonArm64,
+};
 
-const nativeAddonLoader = createDefaultNativeAddonLoader({
-  importMeta: import.meta,
-  buildFolderPath: isDistBuild ? "../../build" : "../build",
-});
+const addonLoader = createDefaultAddonLoader();
 
 type TNativePollerInstance = {
   start: (events: number) => void;
@@ -32,7 +31,30 @@ type TNativeModule = {
   }
 };
 
-const { createNativeUvPoll } = nativeAddonLoader.load() as TNativeModule;
+let loadedAddon: TNativeModule | undefined = undefined;
+
+const createNativeUvPoll = (arg: Parameters<TNativeModule["createNativeUvPoll"]>[0]) => {
+  if (loadedAddon !== undefined) {
+    return loadedAddon.createNativeUvPoll(arg);
+  }
+
+  if (nodeProcess.platform !== "linux") {
+    throw Error("only supported on linux");
+  }
+
+  const addonBinary = addonBinariesByArch[nodeProcess.arch];
+  if (addonBinary === undefined) {
+    throw Error(`unsupported architecture: ${nodeProcess.arch}`);
+  }
+
+  const { error, addon } = addonLoader.loadAddonFromMemory({ addonAsBuffer: addonBinary });
+  if (error !== undefined) {
+    throw Error(`failed to load native addon from memory: ${error.message}`);
+  }
+
+  loadedAddon = addon as TNativeModule;
+  return loadedAddon.createNativeUvPoll(arg);
+};
 
 export type {
   TNativePollerInstance,

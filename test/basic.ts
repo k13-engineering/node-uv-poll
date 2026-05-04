@@ -1,10 +1,10 @@
 import assert from "node:assert/strict";
 import nodeFs from "node:fs";
-import { createPoller } from "../lib/index.ts";
-import { UV_EBADF, UV_READABLE } from "../lib/constants.ts";
+import { createPoller } from "../dist/lib/index.js";
+import { UV_EBADF, UV_READABLE } from "../dist/lib/constants.js";
 import { syscall, syscallNumbers } from "syscall-napi";
-import { createPollerInternal } from "../lib/poller.ts";
-import { type TNativeModule } from "../lib/native.ts";
+import { createPollerInternal } from "../dist/lib/poller.js";
+import { type TNativeModule } from "../dist/lib/native.js";
 
 const AF_UNIX = 1n;
 const SOCK_STREAM = 1n;
